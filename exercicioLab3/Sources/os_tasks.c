@@ -64,7 +64,12 @@ void Task2_task(os_task_param_t task_init_data)
     switch( estadoLedVermelho ) {
     case 0:
     	ledrgb_clearRedLed();
-    	estadoLedVermelho = 1;
+    	if( xSemaphoreGive( ledSemaphore ) != pdTRUE )
+		{
+		// Implementação "Burra" para testes no debug.
+			while(1);
+		}
+		estadoLedVermelho = 1;
     	OSA_TimeDelay(500);
     	break;
     case 1:
@@ -89,7 +94,6 @@ void Task2_task(os_task_param_t task_init_data)
     	ledrgb_setRedLed();
     	estadoLedVermelho = 0;
 		OSA_TimeDelay(1000);
-		xSemaphoreGive(ledSemaphore);
 		break;
     }
     
@@ -141,10 +145,14 @@ void Task1_task(os_task_param_t task_init_data)
     	ledrgb_setGreenLed();
     	estadoLedVerde = 1;
     	OSA_TimeDelay(1000);
-		xSemaphoreGive(ledSemaphore);
 		break;
     case 1:
     	ledrgb_clearGreenLed();
+    	if( xSemaphoreGive( ledSemaphore ) != pdTRUE )
+		{
+		// Implementação "Burra" para testes no debug.
+			while(1);
+		}
 		estadoLedVerde = 0;
 		OSA_TimeDelay(500);
 		break;

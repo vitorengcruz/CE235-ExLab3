@@ -59,6 +59,7 @@ extern void PEX_components_init(void);
 void main_task(os_task_param_t task_init_data)
 {
   /* Write your local variable definition here */
+// Inicializa semáforo do LED RGB.
   ledSemaphore = xSemaphoreCreateBinary();
 
   if( ledSemaphore == NULL )
