@@ -63,6 +63,14 @@ void Task2_task(os_task_param_t task_init_data)
     
     switch( estadoLedVermelho ) {
     case 0:
+#if (USAR_SEMAFORO_LED_RGB==0)
+		if (xSemaphoreGetMutexHolder( ledSemaphore ) != xTaskGetCurrentTaskHandle())
+		{
+		  // Implementação "Burra" para testes no debug.
+			estadoLedVermelho = 1;
+			break;
+		}
+#endif
     	ledrgb_clearRedLed();
     	if( xSemaphoreGive( ledSemaphore ) != pdTRUE )
 		{
@@ -87,7 +95,14 @@ void Task2_task(os_task_param_t task_init_data)
 		 * A rotina retornará o valor pdTRUE quando conseguir adquirir o semáforo antes de esgotar o tempo limite de
 		 * espera, e retornará pdFALSE quando o tempo limite estiver esgotado.
 		 */
-    	if( xSemaphoreTake( ledSemaphore, pdMS_TO_TICKS(1500) ) == pdFALSE ) {
+#if (USAR_SEMAFORO_LED_RGB==0)
+		if (xSemaphoreGetMutexHolder( ledSemaphore ) == xTaskGetCurrentTaskHandle())
+		{
+		// Implementação "Burra" para testes no debug.
+			while(1);
+		}
+#endif
+		if( xSemaphoreTake( ledSemaphore, pdMS_TO_TICKS(1500) ) == pdFALSE ) {
     	// Implementação "Burra" para testes no debug.
     		while(1);
     	}
@@ -138,6 +153,13 @@ void Task1_task(os_task_param_t task_init_data)
 		 * A rotina retornará o valor pdTRUE quando conseguir adquirir o semáforo antes de esgotar o tempo limite de
 		 * espera, e retornará pdFALSE quando o tempo limite estiver esgotado.
 		 */
+#if (USAR_SEMAFORO_LED_RGB==0)
+		if (xSemaphoreGetMutexHolder( ledSemaphore ) == xTaskGetCurrentTaskHandle())
+		{
+		  // Implementação "Burra" para testes no debug.
+			while(1);
+		}
+#endif
     	if( xSemaphoreTake( ledSemaphore, pdMS_TO_TICKS(1500) ) == pdFALSE ) {
     	// Implementação "Burra" para testes no debug.
     		while(1);
@@ -147,6 +169,14 @@ void Task1_task(os_task_param_t task_init_data)
     	OSA_TimeDelay(1000);
 		break;
     case 1:
+#if (USAR_SEMAFORO_LED_RGB==0)
+		if (xSemaphoreGetMutexHolder( ledSemaphore ) != xTaskGetCurrentTaskHandle())
+		{
+		  // Implementação "Burra" para testes no debug.
+			estadoLedVerde = 0;
+			break;
+		}
+#endif
     	ledrgb_clearGreenLed();
     	if( xSemaphoreGive( ledSemaphore ) != pdTRUE )
 		{

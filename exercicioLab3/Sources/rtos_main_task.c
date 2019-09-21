@@ -60,7 +60,11 @@ void main_task(os_task_param_t task_init_data)
 {
   /* Write your local variable definition here */
 // Inicializa semáforo do LED RGB.
+#if (USAR_SEMAFORO_LED_RGB==1)
   ledSemaphore = xSemaphoreCreateBinary();
+#else
+  ledSemaphore = xSemaphoreCreateMutex();
+#endif
 
   if( ledSemaphore == NULL )
   {
@@ -76,12 +80,6 @@ void main_task(os_task_param_t task_init_data)
 
 // Inicializa o LED RGB e sinaliza que o recurso está pronto para operação.
   ledrgb_init();
-
-  if( xSemaphoreGive( ledSemaphore ) != pdTRUE )
-  {
-  // Implementação "Burra" para testes no debug.
-	  while(1);
-  }
 
 #ifdef PEX_USE_RTOS
   while (1) {
