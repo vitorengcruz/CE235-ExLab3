@@ -33,14 +33,11 @@
 #include "rtos_main_task.h"
 #include "os_tasks.h"
 
+#include "ledrgb_drive.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif 
-
-/* User includes (#include below this line is not maintained by Processor Expert) */
-#include "ledrgb_hal.h"
-
-extern SemaphoreHandle_t ledSemaphore;
 
 /*
 ** ===================================================================++
@@ -55,7 +52,7 @@ void Task2_task(os_task_param_t task_init_data)
 {
   /* Write your local variable definition here */
 	uint8_t estadoLedVermelho = 0;
-  
+
 #ifdef PEX_USE_RTOS
   while (1) {
 #endif
@@ -63,52 +60,16 @@ void Task2_task(os_task_param_t task_init_data)
     
     switch( estadoLedVermelho ) {
     case 0:
-#if (USAR_SEMAFORO_LED_RGB==0)
-		if (xSemaphoreGetMutexHolder( ledSemaphore ) != xTaskGetCurrentTaskHandle())
-		{
-		  // Implementação "Burra" para testes no debug.
-			estadoLedVermelho = 1;
-			break;
-		}
-#endif
-    	ledrgb_clearRedLed();
-    	if( xSemaphoreGive( ledSemaphore ) != pdTRUE )
-		{
-		// Implementação "Burra" para testes no debug.
-			while(1);
-		}
+    	if( !driveLedRgb_liga(LED_RGB_VERMELHO) )
+    		while(1);
 		estadoLedVermelho = 1;
-    	OSA_TimeDelay(500);
+    	OSA_TimeDelay(1000);
     	break;
     case 1:
-		/* Para usar o led, a tarefa deve primeiro verificar se o recurso está disponível para ser usado.
-		 * Na rotina xSemaphoreTake, a tarefa tenta adquirir o semáforo, com a possibilidade de programar 3 tipos de
-		 * tempo limite para aguardar a sua mudança:
-		 *
-		 * Colocando valor 0: A rotina não aguarda o semáforo mudar, só verifica o estado atual.
-		 *
-		 * Colocando um valor em ticks ou usando a macro pdMS_TO_TICKS: o sistema vai aguardar o
-		 * o tempo indicado em número de ticks, que é o mecanismo de contagem de tempo do FreeRTOS.
-		 *
-		 * Colocando a macro portMAX_DELAY, que faz com que a rotina fique aguardando indefinidamente.
-		 *
-		 * A rotina retornará o valor pdTRUE quando conseguir adquirir o semáforo antes de esgotar o tempo limite de
-		 * espera, e retornará pdFALSE quando o tempo limite estiver esgotado.
-		 */
-#if (USAR_SEMAFORO_LED_RGB==0)
-		if (xSemaphoreGetMutexHolder( ledSemaphore ) == xTaskGetCurrentTaskHandle())
-		{
-		// Implementação "Burra" para testes no debug.
-			while(1);
-		}
-#endif
-		if( xSemaphoreTake( ledSemaphore, pdMS_TO_TICKS(1500) ) == pdFALSE ) {
-    	// Implementação "Burra" para testes no debug.
+    	if( !driveLedRgb_desliga() )
     		while(1);
-    	}
-    	ledrgb_setRedLed();
     	estadoLedVermelho = 0;
-		OSA_TimeDelay(1000);
+		OSA_TimeDelay(500);
 		break;
     }
     
@@ -139,50 +100,14 @@ void Task1_task(os_task_param_t task_init_data)
     
     switch( estadoLedVerde ) {
     case 0:
-		/* Para usar o led, a tarefa deve primeiro verificar se o recurso está disponível para ser usado.
-		 * Na rotina xSemaphoreTake, a tarefa tenta adquirir o semáforo, com a possibilidade de programar 3 tipos de
-		 * tempo limite para aguardar a sua mudança:
-		 *
-		 * Colocando valor 0: A rotina não aguarda o semáforo mudar, só verifica o estado atual.
-		 *
-		 * Colocando um valor em ticks ou usando a macro pdMS_TO_TICKS: o sistema vai aguardar o
-		 * o tempo indicado em número de ticks, que é o mecanismo de contagem de tempo do FreeRTOS.
-		 *
-		 * Colocando a macro portMAX_DELAY, que faz com que a rotina fique aguardando indefinidamente.
-		 *
-		 * A rotina retornará o valor pdTRUE quando conseguir adquirir o semáforo antes de esgotar o tempo limite de
-		 * espera, e retornará pdFALSE quando o tempo limite estiver esgotado.
-		 */
-#if (USAR_SEMAFORO_LED_RGB==0)
-		if (xSemaphoreGetMutexHolder( ledSemaphore ) == xTaskGetCurrentTaskHandle())
-		{
-		  // Implementação "Burra" para testes no debug.
-			while(1);
-		}
-#endif
-    	if( xSemaphoreTake( ledSemaphore, pdMS_TO_TICKS(1500) ) == pdFALSE ) {
-    	// Implementação "Burra" para testes no debug.
+    	if( !driveLedRgb_liga(LED_RGB_VERDE) )
     		while(1);
-    	}
-    	ledrgb_setGreenLed();
     	estadoLedVerde = 1;
     	OSA_TimeDelay(1000);
 		break;
     case 1:
-#if (USAR_SEMAFORO_LED_RGB==0)
-		if (xSemaphoreGetMutexHolder( ledSemaphore ) != xTaskGetCurrentTaskHandle())
-		{
-		  // Implementação "Burra" para testes no debug.
-			estadoLedVerde = 0;
-			break;
-		}
-#endif
-    	ledrgb_clearGreenLed();
-    	if( xSemaphoreGive( ledSemaphore ) != pdTRUE )
-		{
-		// Implementação "Burra" para testes no debug.
-			while(1);
-		}
+    	if( !driveLedRgb_desliga() )
+    		while(1);
 		estadoLedVerde = 0;
 		OSA_TimeDelay(500);
 		break;

@@ -32,13 +32,11 @@
 #include "rtos_main_task.h"
 #include "os_tasks.h"
 
-#include "ledrgb_hal.h"
+#include "ledrgb_drive.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif 
-
-SemaphoreHandle_t ledSemaphore = NULL;
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
@@ -59,27 +57,15 @@ extern void PEX_components_init(void);
 void main_task(os_task_param_t task_init_data)
 {
   /* Write your local variable definition here */
-// Inicializa semáforo do LED RGB.
-#if (USAR_SEMAFORO_LED_RGB==1)
-  ledSemaphore = xSemaphoreCreateBinary();
-#else
-  ledSemaphore = xSemaphoreCreateMutex();
-#endif
 
-  if( ledSemaphore == NULL )
-  {
-// Implementação "Burra" para testes no debug.
-	  while(1);
-  }
+	if( !driveLedRgb_Init() )
+		while(1);
 
   /* Initialization of Processor Expert components (when some RTOS is active). DON'T REMOVE THIS CODE!!! */
 #ifdef MainTask_PEX_RTOS_COMPONENTS_INIT
   PEX_components_init();
 #endif
   /* End of Processor Expert components initialization.  */
-
-// Inicializa o LED RGB e sinaliza que o recurso está pronto para operação.
-  ledrgb_init();
 
 #ifdef PEX_USE_RTOS
   while (1) {
