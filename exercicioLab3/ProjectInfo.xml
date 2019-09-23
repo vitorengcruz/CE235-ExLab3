@@ -129,6 +129,7 @@
       <PathName>C:\Repositorio_ITA\CE235-ExLab3\exercicioLab3\SDK\rtos\FreeRTOS\src\tasks.c</PathName>
       <PathName>C:\Repositorio_ITA\CE235-ExLab3\exercicioLab3\SDK\rtos\FreeRTOS\src\timers.c</PathName>
       <PathName>C:\Repositorio_ITA\CE235-ExLab3\exercicioLab3\Sources\Events.c</PathName>
+      <PathName>C:\Repositorio_ITA\CE235-ExLab3\exercicioLab3\Sources\ledrgb_drive.c</PathName>
       <PathName>C:\Repositorio_ITA\CE235-ExLab3\exercicioLab3\Sources\ledrgb_hal.c</PathName>
       <PathName>C:\Repositorio_ITA\CE235-ExLab3\exercicioLab3\Sources\main.c</PathName>
       <PathName>C:\Repositorio_ITA\CE235-ExLab3\exercicioLab3\Sources\os_tasks.c</PathName>
@@ -197,6 +198,7 @@
       <PathName>C:\Repositorio_ITA\CE235-ExLab3\exercicioLab3\SDK\rtos\FreeRTOS\port\gcc\portTicks.h</PathName>
       <PathName>C:\Repositorio_ITA\CE235-ExLab3\exercicioLab3\SDK\rtos\FreeRTOS\port\gcc\portmacro.h</PathName>
       <PathName>C:\Repositorio_ITA\CE235-ExLab3\exercicioLab3\Sources\Events.h</PathName>
+      <PathName>C:\Repositorio_ITA\CE235-ExLab3\exercicioLab3\Sources\ledrgb_drive.h</PathName>
       <PathName>C:\Repositorio_ITA\CE235-ExLab3\exercicioLab3\Sources\ledrgb_hal.h</PathName>
       <PathName>C:\Repositorio_ITA\CE235-ExLab3\exercicioLab3\Sources\os_tasks.h</PathName>
       <PathName>C:\Repositorio_ITA\CE235-ExLab3\exercicioLab3\Sources\rtos_main_task.h</PathName>

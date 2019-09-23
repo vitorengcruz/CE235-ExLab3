@@ -47,7 +47,6 @@
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.usepreprocessor.831874677" name="Use preprocessor" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.usepreprocessor" value="true" valueType="boolean"/>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.defs.663180366" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.defs" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="&quot;FSL_RTOS_FREE_RTOS&quot;"/>
-									<listOptionValue builtIn="false" value="USAR_MUTEX_LED_RGB"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths.662740511" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.assembler.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Generated_Code/SDK/rtos/FreeRTOS/config&quot;"/>
@@ -59,7 +58,7 @@
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs.602533332" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="&quot;CPU_MKL25Z128VLK4&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;FSL_RTOS_FREE_RTOS&quot;"/>
-									<listOptionValue builtIn="false" value="USAR_MUTEX_LED_RGB=0"/>
+									<listOptionValue builtIn="false" value="USAR_MUTEX_LED_RGB=1"/>
 								</option>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths.843789746" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/SDK/platform/hal/inc&quot;"/>
@@ -164,11 +163,12 @@
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.command.ar.1357973553.82882839" name="Archiver" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.command.ar.1357973553"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.printsize.1176114426.1465972623" name="Print size" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.addtools.printsize.1176114426"/>
 							<option id="ilg.gnuarmeclipse.managedbuild.cross.option.warnings.allwarn.1416135043.1787169149" name="Enable all common warnings (-Wall)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.warnings.allwarn.1416135043"/>
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="ilg.gnuarmeclipse.managedbuild.cross.targetPlatform" isAbstract="false" osList="all" superClass="ilg.gnuarmeclipse.managedbuild.cross.targetPlatform"/>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.2138088958" name="Cross ARM GNU Assembler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.1681745152">
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.input.1945210535" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.assembler.input"/>
 							</tool>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.1497343254" name="Cross ARM C Compiler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.812919868">
-								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs.633802928" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs" valueType="definedSymbols">
+								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs.633802928" name="Defined symbols (-D)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.defs" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="&quot;CPU_MKL25Z128VLK4&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;FSL_RTOS_FREE_RTOS&quot;"/>
 									<listOptionValue builtIn="false" value="USAR_MUTEX_LED_RGB=1"/>

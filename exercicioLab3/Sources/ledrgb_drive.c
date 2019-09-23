@@ -50,6 +50,12 @@ bool driveLedRgb_Init ( void ) {
 		return false;
 	}
 
+#if (USAR_MUTEX_LED_RGB==0)
+	if( xSemaphoreGive( ledSemaphore ) == pdFALSE )
+	{
+		return false;
+	}
+#endif
 // Inicializa os pinos do LED RGB.
 	ledrgb_init();
 
@@ -139,7 +145,7 @@ bool driveLedRgb_trocaCor ( corLedRgbEnum_t cor  ) {
 #if (USAR_MUTEX_LED_RGB==1)
 	/*
 	 * No caso do mutex, verifica se a task já possui o semáforo, para que então possa trocar a cor do LED.
-	 * Se a task não possui o semáforo, não é possível correto efetuar a troca pois outra task está com
+	 * Se a task não possui o semáforo, não é possível efetuar a troca pois outra task está com
 	 * a posse do recurso neste momento, sendo assim retorna falha.
 	 */
 	if (xSemaphoreGetMutexHolder( ledSemaphore ) != xTaskGetCurrentTaskHandle())
